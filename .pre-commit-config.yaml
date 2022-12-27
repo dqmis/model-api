@@ -41,12 +41,6 @@ repos:
         language: system
         types: [python]
         pass_filenames: false
-      - id: safety
-        name: safety
-        entry: poetry run safety check --full-report --ignore 45114
-        language: system
-        files: ^(poetry\.lock|pyproject.toml)$
-        pass_filenames: false
       - id: nbqa-isort
         name: nbqa-isort
         entry: poetry run nbqa isort .

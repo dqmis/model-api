@@ -3,6 +3,7 @@ from typing import Dict, List
 import numpy as np
 import pandas as pd
 from fastapi import FastAPI
+from numpy.typing import NDArray
 
 from src.models import car
 from src.utils.model_utils import load_model
@@ -21,6 +22,6 @@ def health() -> Dict[str, str]:
 @app.post("/predict")
 def predict(inputs: List[car.Input]) -> Dict[str, List[Dict[str, float]]]:
     parsed_input = pd.DataFrame([i.dict() for i in inputs])
-    outputs: np.ndarray = model.predict(parsed_input)  # type: ignore
+    outputs: NDArray[np.float32] = model.predict(parsed_input)
 
     return {"outputs": [{"predicted_price": i} for i in outputs.tolist()]}
